@@ -1,0 +1,1776 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     84641,       1767]
+NotebookOptionsPosition[     84244,       1749]
+NotebookOutlinePosition[     84620,       1765]
+CellTagsIndexPosition[     84577,       1762]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "*", "\[IndentingNewLine]", "    ", "Some", " ", "small", " ", "projects", 
+    " ", "in", " ", "Mathematica", "\[IndentingNewLine]", "    ", "Four", " ",
+     "tiny", " ", "\"\<projects\>\"", " ", "about", " ", "approximations", 
+    " ", "and", " ", "function", " ", 
+    RowBox[{
+    "limits", ".", "\[IndentingNewLine]", "\t", "\[IndentingNewLine]", "   ", 
+     RowBox[{"@", "Piotr"}]}], " ", "Styczy\:0144ski", " ", "2017"}], 
+   "\[IndentingNewLine]", "**)"}]}]], "Input",
+ CellChangeTimes->{{3.6939955067882853`*^9, 3.6939955444058375`*^9}, {
+  3.699906788043312*^9, 3.6999068577943993`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "*", " ", "Some", " ", "local", " ", "variables", " ", "and", " ", 
+    "stuff"}], " ", "**)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"DynamicModule", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"windowWidth", " ", "=", " ", 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{
+          RowBox[{"CurrentValue", "[", 
+           RowBox[{
+            RowBox[{"SelectedNotebook", "[", "]"}], ",", "WindowSize"}], 
+           "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
+       RowBox[{"componentSizeW", " ", "=", 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CurrentValue", "[", 
+            RowBox[{
+             RowBox[{"SelectedNotebook", "[", "]"}], ",", "WindowSize"}], 
+            "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "*", "0.4"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"componentSizeH", " ", "=", 
+        RowBox[{"Dynamic", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CurrentValue", "[", 
+            RowBox[{
+             RowBox[{"SelectedNotebook", "[", "]"}], ",", "WindowSize"}], 
+            "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "*", "0.4"}], "]"}]}]}], 
+      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{"*", " ", "Project", " ", "1"}], " ", "**)"}], 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Project1", " ", "=", " ", 
+       RowBox[{"Framed", "[", 
+        RowBox[{
+         RowBox[{"Column", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Project 1\>\"", ",", "Black", ",", "Bold", ",", "25", ",", 
+               " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Serif\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "20"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Riemann series teorem \
+presentation\!\(\(TraditionalForm\`\\\ \)\)\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Please select the limit you wish to get from \
+\!\(\*FractionBox[\(1\), \(n\)]\) number permutation.\>\"", ",", " ", "16", 
+               ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "10"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Module", "[", 
+              RowBox[{
+               RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"HarmonicGenTrace", "[", 
+                  RowBox[{"val_", ",", 
+                   RowBox[{"n_:", " ", "60"}]}], "]"}], " ", ":=", " ", 
+                 RowBox[{"Module", "[", 
+                  RowBox[{
+                   RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"ResultList", "=", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"NPList", " ", "=", " ", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"sum", "=", "0.5"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"negi", "=", "4"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"posi", "=", "3"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"ncount", "=", "1"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pcount", "=", "1"}]}], "\[IndentingNewLine]", 
+                    "}"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"negi", "<=", "n"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"posi", "<=", "n"}], ")"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "<=", "val"}], " ", ")"}], "&&", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"posi", "\[LessEqual]", "n"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "+=", 
+                    FractionBox["1", "posi"]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"NPList", ",", 
+                    FractionBox["pcount", "ncount"]}], "]"}], ";", " ", 
+                    RowBox[{"posi", "+=", "2"}], ";", 
+                    RowBox[{"pcount", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", ">=", "val"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"negi", "\[LessEqual]", "n"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "-=", 
+                    FractionBox["1", "negi"]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"NPList", ",", 
+                    FractionBox["pcount", "ncount"]}], "]"}], ";", " ", 
+                    RowBox[{"negi", "+=", "2"}], ";", 
+                    RowBox[{"ncount", "++"}]}]}], "]"}]}]}], 
+                    "\[IndentingNewLine]", "]"}], ";", 
+                    RowBox[{"{", 
+                    RowBox[{"ResultList", ",", " ", "NPList"}], "}"}]}]}], 
+                  "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+                "\[IndentingNewLine]", 
+                RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Block", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Answer", " ", "=", " ", 
+                    RowBox[{"HarmonicGenTrace", "[", 
+                    RowBox[{"value", ",", "n"}], "]"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"valueLim", "=", " ", 
+                    RowBox[{"Exp", "[", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"value", "-", 
+                    RowBox[{"Log", "[", "2", "]"}]}], ")"}], "*", "2"}], 
+                    "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"dataRange", "=", " ", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"n", "*", "0.5"}], ",", "n"}], "}"}]}]}], 
+                    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"Block", "[", 
+                    RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"p1", " ", "=", " ", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{
+                    RowBox[{"Answer", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", " ", 
+                    RowBox[{"PlotLabel", "\[Rule]", "  ", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Permutacja d\:0105\:017c\:0105ca do \>\"", "<>", 
+                    RowBox[{"(", 
+                    RowBox[{"ToString", "[", "value", "]"}], ")"}]}], ")"}], 
+                    "<>", "\"\<\>\""}]}], ",", " ", 
+                    RowBox[{"DataRange", "\[Rule]", "dataRange"}], ",", " ", 
+                    RowBox[{"AxesLabel", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<n\>\"", ",", "\"\<n-ty wyraz szeregu\>\""}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"p2", " ", "=", " ", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{
+                    RowBox[{"Answer", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+                    RowBox[{"PlotLabel", "\[Rule]", " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    "\"\<p_n/m_n (Ci\:0105g powinien d\:0105\:017cy\[CAcute] \
+do r=\>\"", "<>", 
+                    RowBox[{"(", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"valueLim", ",", "3"}], "]"}], "]"}], ")"}], 
+                    "<>", "\"\<)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"DataRange", "\[Rule]", "dataRange"}], ",", 
+                    RowBox[{"AxesLabel", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    "\"\<n\>\"", ",", 
+                    "\"\<n-ty wyraz ci\:0105gu p_n/m_n\>\""}], "}"}]}]}], 
+                    "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pn1", "=", " ", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{"value", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Red", ",", "Thick", ",", "Dashed"}], "}"}]}]}], 
+                    "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pn2", "=", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{"valueLim", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Red", ",", " ", "Thick", ",", " ", "Dashed"}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"buttons", "=", 
+                    RowBox[{"ButtonBar", "[", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<\[Pi]\>\"", " ", "\[RuleDelayed]", " ", 
+                    RowBox[{"Print", "[", "0", "]"}]}], "}"}], "]"}]}]}], 
+                    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                    "  ", 
+                    RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"Show", "[", 
+                    RowBox[{"p1", ",", "pn1"}], "]"}], "}"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"Show", "[", 
+                    RowBox[{"p2", ",", "pn2"}], "]"}], "}"}]}], "}"}], ",", 
+                    RowBox[{"PlotLabel", "\[Rule]", 
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Permutacje szeregu harmonicznego (\>\"", "<>", 
+                    RowBox[{"ToString", "[", "n", "]"}], "<>", 
+                    "\"\< pr\[OAcute]bek)\>\""}], ")"}]}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"componentSizeW", ",", " ", 
+                    RowBox[{"componentSizeH", "+", "90"}]}], "}"}]}]}], 
+                    "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+                   "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "n", ",", "20", ",", " ", "\"\<Number of samples\>\""}], 
+                    "}"}], ",", "10", ",", " ", "2000", ",", "1", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}], ",", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "value", ",", " ", "1", ",", " ", 
+                    "\"\<Desired limit of series\>\""}], "}"}], ",", 
+                    RowBox[{"-", "1.8"}], ",", "3.6", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], 
+           ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+         RowBox[{"FrameMargins", "\[Rule]", "10"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"*", " ", "Project", " ", "2"}], " ", "**)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Project2", " ", "=", " ", 
+       RowBox[{"Framed", "[", 
+        RowBox[{
+         RowBox[{"Column", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Project 2\>\"", ",", "Black", ",", "Bold", ",", "25", ",", 
+               " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Serif\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "20"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Let's suppose we have the following algorithm. Given \
+number \!\(TraditionalForm\`d\) and \!\(TraditionalForm\`\[Epsilon] > \
+0\)\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<we add \!\(TraditionalForm\`\*FractionBox[\(1\), \(2  n - \
+1\)]\) until we get more than \!\(TraditionalForm\`\(\(d + \
+\[Epsilon]\)\(,\)\(\\\ \)\)\)\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<we substract \!\(TraditionalForm\`\*FractionBox[\(-1\), \
+\(2  n\)]\) until we get less than d-\[Epsilon], etc. \>\"", ",", " ", "16", 
+               ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<If \[Epsilon]>0 then we get not divergent series. You can \
+generate such series below:\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "10"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Module", "[", 
+              RowBox[{
+               RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"GenDivergentSeries", "[", 
+                  RowBox[{"vd_", ",", "ve_", ",", 
+                   RowBox[{"vn_:", " ", "60"}]}], "]"}], " ", ":=", " ", 
+                 RowBox[{"Module", "[", 
+                  RowBox[{
+                   RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"ResultList", "=", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"iter", "=", "1"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"sum", "=", "0"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"stepIter", "=", "0"}]}], "\[IndentingNewLine]", 
+                    "}"}], ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"stepIter", "\[LessEqual]", 
+                    RowBox[{"vn", "*", "3"}]}], ")"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[LessEqual]", 
+                    RowBox[{"vd", "+", "ve"}]}], " ", ")"}], "&&", " ", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "+=", 
+                    FractionBox["1", 
+                    RowBox[{
+                    RowBox[{"2", "*", "iter"}], "-", "1"}]]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[GreaterEqual]", 
+                    RowBox[{"vd", "-", "ve"}]}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "-=", 
+                    FractionBox["1", 
+                    RowBox[{"2", "*", "iter"}]]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"++", "stepIter"}]}]}], "\[IndentingNewLine]", 
+                    "]"}], ";", "ResultList"}]}], "\[IndentingNewLine]", 
+                  "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Block", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Answer", " ", "=", " ", 
+                    RowBox[{"GenDivergentSeries", "[", 
+                    RowBox[{"d", ",", "e", ",", "n"}], "]"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"dataRange", "=", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", " ", "n"}], "}"}]}]}], 
+                    "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"Block", "[", 
+                    RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"p1", " ", "=", " ", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{"Answer", ",", " ", 
+                    RowBox[{"PlotLabel", "\[Rule]", "  ", 
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Generated series \>\"", "<>", 
+                    RowBox[{"(", 
+                    RowBox[{"ToString", "[", "value", "]"}], ")"}], "<>", 
+                    "\"\<(d=\>\"", "<>", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"d", ",", "3"}], "]"}], "]"}], "<>", "\"\<)\>\"", 
+                    "<>", "\"\<(e=\>\"", "<>", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"e", ",", "3"}], "]"}], "]"}], "<>", 
+                    "\"\<)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"DataRange", "\[Rule]", "dataRange"}], ",", 
+                    RowBox[{"AxesLabel", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    "\"\<n\>\"", ",", "\"\<n-th element of series\>\""}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"ptop", "=", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{
+                    RowBox[{"d", "+", "e"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Black", ",", "Thick", ",", " ", "Dashed"}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pbottom", "=", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{
+                    RowBox[{"d", "-", "e"}], ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Black", ",", "Thick", ",", "Dashed"}], " ", 
+                    "}"}]}]}], "]"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+                    "\[IndentingNewLine]", "  ", 
+                    RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{"Show", "[", 
+                    RowBox[{"p1", ",", "ptop", ",", "pbottom"}], "]"}], "}"}],
+                     "}"}], ",", 
+                    RowBox[{"PlotLabel", "\[Rule]", 
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Demonstracja algorytmu (\>\"", "<>", 
+                    RowBox[{"ToString", "[", "n", "]"}], "<>", 
+                    "\"\< pr\[OAcute]bek)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"ImageSize", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"componentSizeW", ",", "componentSizeH"}], 
+                    "}"}]}]}], "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+                   "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "n", ",", "20", ",", " ", "\"\<Number of samples\>\""}], 
+                    "}"}], ",", "10", ",", " ", "500", ",", "1", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}], ",", " ", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "d", ",", " ", "0.27", ",", " ", "\"\<Parameter d\>\""}], 
+                    "}"}], ",", 
+                    RowBox[{"-", "3"}], ",", "3", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "e", ",", " ", "0.05", ",", " ", "\"\<Parameter e\>\""}], 
+                    "}"}], ",", "0", ",", "3", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], 
+           ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+         RowBox[{"FrameMargins", "\[Rule]", "10"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"*", " ", "Project", " ", "3"}], " ", "**)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Project3", " ", "=", " ", 
+       RowBox[{"Framed", "[", 
+        RowBox[{
+         RowBox[{"Column", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Project 3\>\"", ",", "Black", ",", "Bold", ",", "25", ",", 
+               " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Serif\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "20"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Let's take a seqence \!\(TraditionalForm\`1, \
+\*FractionBox[\(1\), \(2\)], \*FractionBox[\(1\), \(3\)],  ... \) in the \
+monotonic order\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<(now it satisfies Dirichlet teorem) \>\"", ",", " ", "16", 
+               ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<then we add elements of this sequence until we got more \
+than number \!\(TraditionalForm\`a\), then we substract them etc.\>\"", ",", 
+               " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<We will get a series converging to \
+\!\(TraditionalForm\`a\). You can generate such series below: \>\"", ",", " ",
+                "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "10"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Module", "[", 
+              RowBox[{
+               RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"GenSeriesA", "[", 
+                  RowBox[{"va_", ",", 
+                   RowBox[{"vn_:", " ", "60"}]}], "]"}], " ", ":=", " ", 
+                 RowBox[{"Module", "[", 
+                  RowBox[{
+                   RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"ResultList", "=", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"iter", "=", "1"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"stepIter", "=", "0"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"sum", "=", "0"}]}], "\[IndentingNewLine]", "}"}],
+                    ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"stepIter", "\[LessEqual]", 
+                    RowBox[{"vn", "*", "3"}]}], ")"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[LessEqual]", "va"}], " ", ")"}], "&&", 
+                    " ", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "+=", 
+                    FractionBox["1", "iter"]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[GreaterEqual]", "va"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "-=", 
+                    FractionBox["1", "iter"]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"ResultList", ",", "sum"}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"++", "stepIter"}]}]}], "\[IndentingNewLine]", 
+                    "]"}], ";", "ResultList"}]}], "\[IndentingNewLine]", 
+                  "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+                RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Block", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Answer", " ", "=", " ", 
+                    RowBox[{"GenSeriesA", "[", 
+                    RowBox[{"a", ",", "n"}], "]"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"dataRange", "=", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "n"}], "}"}]}]}], "\[IndentingNewLine]",
+                     "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"Block", "[", 
+                    RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"p1", " ", "=", " ", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{"Answer", ",", " ", 
+                    RowBox[{"PlotLabel", "\[Rule]", "  ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    "\"\<Wygenerowany szereg \>\"", "<>", "\"\<(a=\>\"", "<>", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"a", ",", "3"}], "]"}], "]"}], "<>", 
+                    "\"\<)\>\""}], ")"}]}], ",", 
+                    RowBox[{"DataRange", "\[Rule]", "dataRange"}], ",", 
+                    RowBox[{"AxesLabel", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<n\>\"", ",", "\"\<n-ty wyraz szeregu\>\""}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pn1", "=", " ", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Red", ",", "Thick", ",", "Dashed"}], "}"}]}]}], 
+                    "]"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+                    "\[IndentingNewLine]", "  ", 
+                    RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{"Show", "[", 
+                    RowBox[{"p1", ",", "pn1"}], "]"}], "}"}], "}"}], ",", 
+                    RowBox[{"PlotLabel", "\[Rule]", 
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Demonstracja algorytmu (\>\"", "<>", 
+                    RowBox[{"ToString", "[", "n", "]"}], "<>", 
+                    "\"\< pr\[OAcute]bek)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"ImageSize", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"componentSizeW", "+", "115"}], ",", " ", 
+                    "componentSizeH"}], "}"}]}]}], "]"}]}], 
+                    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+                   "]"}], "\[IndentingNewLine]", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "n", ",", "20", ",", " ", "\"\<Number of samples\>\""}], 
+                    "}"}], ",", "10", ",", " ", "500", ",", "1", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "a", ",", " ", "0.05", ",", " ", 
+                    "\"\<Parameter a (desired limit)\>\""}], "}"}], ",", 
+                    RowBox[{"-", "3"}], ",", "3", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], 
+           ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+         RowBox[{"FrameMargins", "\[Rule]", "10"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"*", " ", "Project", " ", "4"}], " ", "**)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"Project4", " ", "=", " ", 
+       RowBox[{"Framed", "[", 
+        RowBox[{
+         RowBox[{"Column", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Project 4\>\"", ",", "Black", ",", "Bold", ",", "25", ",", 
+               " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Serif\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "20"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<We can easily prove that any number x can be expressed in \
+form: \>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<             \[Sum]\!\(\*FractionBox[\((\(-1\) \
+\*SuperscriptBox[\()\), \(n\)]\), \(\*SubscriptBox[\(p\), \(\[Pi]\)] \
+\((n)\)\)]\)\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<where \!\(TraditionalForm\`\[Pi]\) is some permutation: \!\
+\(TraditionalForm\`\[Pi] : \[DoubleStruckCapitalN]\\\  \[Rule] \\\ \
+\[DoubleStruckCapitalN]\)\>\"", ",", " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Style", "[", 
+              RowBox[{
+              "\"\<Below you can express any number x in such form.\>\"", ",",
+                " ", "16", ",", " ", 
+               RowBox[{"FontFamily", "\[Rule]", "\"\<Arial\>\""}]}], "]"}], 
+             ",", "\[IndentingNewLine]", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", " ", 
+               RowBox[{"ImageSize", "\[Rule]", 
+                RowBox[{"{", 
+                 RowBox[{"10", ",", "10"}], "}"}]}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Module", "[", 
+              RowBox[{
+               RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"GenSeriesAPrimes", "[", 
+                  RowBox[{"va_", ",", 
+                   RowBox[{"vn_:", " ", "60"}]}], "]"}], " ", ":=", " ", 
+                 RowBox[{"Module", "[", 
+                  RowBox[{
+                   RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"PosResultList", "=", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"NegResultList", "=", 
+                    RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"iter", "=", "1"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"stepIter", "=", "0"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"sum", "=", "0"}]}], "\[IndentingNewLine]", "}"}],
+                    ",", "\[IndentingNewLine]", 
+                   RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"stepIter", "\[LessEqual]", 
+                    RowBox[{"vn", "*", "3"}]}], ")"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[LessEqual]", "va"}], " ", ")"}], "&&", 
+                    " ", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "+=", 
+                    FractionBox["1", 
+                    RowBox[{"Prime", "[", "iter", "]"}]]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"PosResultList", ",", 
+                    FractionBox["1", 
+                    RowBox[{"Prime", "[", "iter", "]"}]]}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"While", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"sum", "\[GreaterEqual]", "va"}], ")"}], "&&", 
+                    RowBox[{"(", 
+                    RowBox[{"iter", "\[LessEqual]", "vn"}], ")"}]}], ",", " ", 
+                    RowBox[{
+                    RowBox[{"sum", "-=", 
+                    FractionBox["1", 
+                    RowBox[{"Prime", "[", "iter", "]"}]]}], ";", " ", 
+                    RowBox[{"AppendTo", "[", 
+                    RowBox[{"NegResultList", ",", 
+                    FractionBox[
+                    RowBox[{"-", "1"}], 
+                    RowBox[{"Prime", "[", "iter", "]"}]]}], "]"}], ";", " ", 
+                    RowBox[{"iter", "++"}]}]}], "]"}], ";", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"++", "stepIter"}]}]}], "\[IndentingNewLine]", 
+                    "]"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"ans", "=", 
+                    RowBox[{"Riffle", "[", 
+                    RowBox[{"NegResultList", ",", "PosResultList"}], "]"}]}], 
+                    ";", "\[IndentingNewLine]", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Map", "[", 
+                    RowBox[{
+                    RowBox[{"Function", "[", 
+                    RowBox[{"x", ",", 
+                    RowBox[{"Abs", "[", 
+                    RowBox[{"1", "/", "x"}], "]"}]}], "]"}], ",", "ans"}], 
+                    "]"}], ",", 
+                    RowBox[{"Accumulate", "[", "ans", "]"}]}], "}"}]}]}], 
+                  "\[IndentingNewLine]", "]"}]}], ";", "\[IndentingNewLine]", 
+                "\[IndentingNewLine]", 
+                RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+                 RowBox[{
+                  RowBox[{"Block", "[", 
+                   RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"Answer", " ", "=", " ", 
+                    RowBox[{"GenSeriesAPrimes", "[", 
+                    RowBox[{"a", ",", "n"}], "]"}]}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"dataRange", "=", 
+                    RowBox[{"{", 
+                    RowBox[{"0", ",", "n"}], "}"}]}]}], "\[IndentingNewLine]",
+                     "}"}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"Block", "[", 
+                    RowBox[{
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"p1", " ", "=", " ", 
+                    RowBox[{"ListPlot", "[", 
+                    RowBox[{
+                    RowBox[{"Answer", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+                    RowBox[{"PlotLabel", "\[Rule]", "  ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    "\"\<Wygenerowany szereg \>\"", "<>", "\"\<(a=\>\"", "<>", 
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"a", ",", "3"}], "]"}], "]"}], "<>", 
+                    "\"\<)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"DataRange", "\[Rule]", "dataRange"}], ",", 
+                    RowBox[{"AxesLabel", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<n\>\"", ",", "\"\<n-ty wyraz szeregu\>\""}], 
+                    "}"}]}]}], "]"}]}], ",", "\[IndentingNewLine]", 
+                    RowBox[{"pn1", "=", " ", 
+                    RowBox[{"Plot", "[", 
+                    RowBox[{"a", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"t", ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{"dataRange", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", " ", 
+                    RowBox[{"PlotStyle", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"Red", ",", "Thick", ",", "Dashed"}], "}"}]}]}], 
+                    "]"}]}]}], "\[IndentingNewLine]", "}"}], ",", 
+                    "\[IndentingNewLine]", 
+                    RowBox[{"Column", "[", 
+                    RowBox[{"{", "\[IndentingNewLine]", 
+                    RowBox[{
+                    RowBox[{"GraphicsGrid", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"{", 
+                    RowBox[{"Show", "[", 
+                    RowBox[{"p1", ",", "pn1"}], "]"}], "}"}], "}"}], ",", 
+                    RowBox[{"PlotLabel", "\[Rule]", 
+                    RowBox[{"(", 
+                    RowBox[{"\"\<Demonstracja algorytmu (\>\"", "<>", 
+                    RowBox[{"ToString", "[", "n", "]"}], "<>", 
+                    "\"\< pr\[OAcute]bek)\>\""}], ")"}]}], ",", " ", 
+                    RowBox[{"ImageSize", "\[Rule]", 
+                    RowBox[{"{", 
+                    RowBox[{"componentSizeW", ",", " ", "componentSizeH"}], 
+                    "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+                    "\"\<Used primes permutation \!\(\*SubscriptBox[\(p\), \(\
+\[Pi]\)]\)(n):\>\"", ",", "\[IndentingNewLine]", 
+                    RowBox[{"Style", "[", 
+                    RowBox[{
+                    RowBox[{"ToString", "[", 
+                    RowBox[{"Answer", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", "10"}], 
+                    "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
+                    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+                   "]"}], "\[IndentingNewLine]", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "n", ",", "20", ",", " ", "\"\<Number of samples\>\""}], 
+                    "}"}], ",", "10", ",", " ", "500", ",", "1", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    "a", ",", " ", "0.05", ",", " ", "\"\<Number x\>\""}], 
+                    "}"}], ",", 
+                    RowBox[{"-", "3"}], ",", "3", ",", 
+                    RowBox[{"ControlType", "\[Rule]", "Manipulator"}], ",", 
+                    RowBox[{"ImageSize", "\[Rule]", "componentSizeW"}], ",", 
+                    " ", 
+                    RowBox[{"Appearance", "\[Rule]", " ", "\"\<Labeled\>\""}],
+                     ",", " ", 
+                    RowBox[{"AppearanceElements", "\[Rule]", "None"}]}], 
+                   "}"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "}"}], 
+           ",", 
+           RowBox[{"Alignment", "\[Rule]", "Left"}]}], "]"}], ",", 
+         RowBox[{"FrameMargins", "\[Rule]", "10"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"Wire", " ", "all", " ", "projects", " ", "together"}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"Framed", "[", 
+       RowBox[{
+        RowBox[{"Grid", "[", 
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Project1", ",", " ", "Project2"}], "}"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"{", 
+            RowBox[{"Project3", ",", " ", "Project4"}], "}"}]}], 
+          "\[IndentingNewLine]", "}"}], "]"}], ",", " ", 
+        RowBox[{"FrameStyle", "\[Rule]", "None"}]}], "]"}]}]}], 
+    "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.693918754641868*^9, 3.6939188368778677`*^9}, {
+   3.693918874385645*^9, 3.6939188802043705`*^9}, {3.6939189387196207`*^9, 
+   3.6939189520418496`*^9}, {3.6939190352602496`*^9, 
+   3.6939190939912496`*^9}, {3.69391912963925*^9, 3.6939192700462494`*^9}, {
+   3.6939194467598314`*^9, 3.6939194675098314`*^9}, {3.6939199326843195`*^9, 
+   3.6939199844393196`*^9}, {3.69392004807046*^9, 3.693920049301583*^9}, {
+   3.6939201040120535`*^9, 3.693920105099162*^9}, {3.693920162735925*^9, 
+   3.6939201657582273`*^9}, {3.693920826390318*^9, 3.693920836021318*^9}, {
+   3.6939218498359776`*^9, 3.693921934013762*^9}, 3.6939219690277133`*^9, {
+   3.693922142200017*^9, 3.6939222259498386`*^9}, {3.69392226510669*^9, 
+   3.69392233821769*^9}, {3.6939223828908157`*^9, 3.693922409225603*^9}, {
+   3.693922440563987*^9, 3.6939224594442606`*^9}, {3.6939224903068743`*^9, 
+   3.693922611383218*^9}, {3.6939226438710704`*^9, 3.6939226482701473`*^9}, {
+   3.6939227372405806`*^9, 3.693922760347588*^9}, {3.693922857556101*^9, 
+   3.693922862905101*^9}, {3.6939231584191008`*^9, 3.6939232700201006`*^9}, {
+   3.693923307379101*^9, 3.693923381149101*^9}, {3.69392346763173*^9, 
+   3.6939235704718695`*^9}, {3.6939236030938697`*^9, 
+   3.6939236507788696`*^9}, {3.6939237268632507`*^9, 
+   3.6939237419932504`*^9}, {3.6939237830372505`*^9, 
+   3.6939238598212504`*^9}, {3.6939241081549788`*^9, 
+   3.6939241347249784`*^9}, {3.6939242049609785`*^9, 
+   3.6939242249969788`*^9}, {3.6939242884449787`*^9, 
+   3.6939243232361784`*^9}, {3.6939243754971786`*^9, 
+   3.6939243856771784`*^9}, {3.6939245537274*^9, 3.6939245699093924`*^9}, {
+   3.693924621651532*^9, 3.693924804228258*^9}, {3.693924881331376*^9, 
+   3.6939248888836308`*^9}, {3.6939249271956964`*^9, 
+   3.6939249555505524`*^9}, {3.693925016565379*^9, 3.6939250182199473`*^9}, {
+   3.69392508049535*^9, 3.6939250836776886`*^9}, {3.6939251181494265`*^9, 
+   3.69392522926689*^9}, {3.693925276713978*^9, 3.6939253294393644`*^9}, {
+   3.693925366001461*^9, 3.693925388642626*^9}, {3.693925431025998*^9, 
+   3.6939254416201944`*^9}, {3.693925540527189*^9, 3.693925575870509*^9}, {
+   3.6939257080367517`*^9, 3.693925734648752*^9}, {3.693925767158752*^9, 
+   3.693925786959752*^9}, {3.693988315920376*^9, 3.6939883730733314`*^9}, {
+   3.693988448896549*^9, 3.6939884492197084`*^9}, {3.693988496176033*^9, 
+   3.693988627969401*^9}, {3.6939887970153055`*^9, 3.693988805238637*^9}, {
+   3.6939888491719904`*^9, 3.693988950150078*^9}, {3.6939890532656155`*^9, 
+   3.6939891526769953`*^9}, {3.6939891893030844`*^9, 3.693989208184198*^9}, {
+   3.693989254427802*^9, 3.693989371853256*^9}, {3.6939895399163113`*^9, 
+   3.693989619172594*^9}, {3.693989659226737*^9, 3.693989700601467*^9}, {
+   3.6939897372645035`*^9, 3.6939897387321496`*^9}, {3.693989792569625*^9, 
+   3.693989858899223*^9}, 3.693989899545417*^9, {3.6939899486982417`*^9, 
+   3.693990010311937*^9}, {3.69399036077393*^9, 3.6939904040006943`*^9}, {
+   3.6939906652281094`*^9, 3.6939906905978193`*^9}, {3.6939907944882965`*^9, 
+   3.6939910089386106`*^9}, 3.693991183879068*^9, {3.693991273700985*^9, 
+   3.6939912995736012`*^9}, {3.6939913654846506`*^9, 
+   3.6939913698401623`*^9}, {3.693991420026504*^9, 3.693991420145584*^9}, {
+   3.693991460586869*^9, 3.6939915151280622`*^9}, {3.6939917622600265`*^9, 
+   3.693991912966388*^9}, {3.6939923591851697`*^9, 3.693992418945864*^9}, {
+   3.6939924528589783`*^9, 3.6939925414263086`*^9}, {3.6939926458401823`*^9, 
+   3.6939926643930073`*^9}, {3.6939927347425647`*^9, 
+   3.6939927990145597`*^9}, {3.6939928395270605`*^9, 3.693992865594659*^9}, {
+   3.6939929160002546`*^9, 3.693992917968582*^9}, {3.693992981638242*^9, 
+   3.693992988883682*^9}, {3.693993041942162*^9, 3.6939932327108393`*^9}, {
+   3.6939932822848787`*^9, 3.6939933117689123`*^9}, {3.6939933718259225`*^9, 
+   3.6939934737843933`*^9}, {3.693993509700573*^9, 3.693993608448742*^9}, {
+   3.6939936421611404`*^9, 3.693993794052608*^9}, {3.6939938414247856`*^9, 
+   3.6939939129680443`*^9}, {3.6939942706561375`*^9, 
+   3.6939943103535852`*^9}, {3.693994353522421*^9, 3.69399440537934*^9}, {
+   3.693994492432106*^9, 3.693994608302763*^9}, {3.6939946451271677`*^9, 
+   3.6939947878248076`*^9}, {3.69399486886977*^9, 3.6939949086330323`*^9}, {
+   3.693994952215653*^9, 3.6939951652638702`*^9}, {3.693995242849289*^9, 
+   3.69399529661351*^9}, {3.6939953303670225`*^9, 3.6939953308358574`*^9}, {
+   3.6999068227466927`*^9, 3.699906974961059*^9}, {3.699907049468521*^9, 
+   3.69990748997451*^9}}],
+
+Cell[BoxData[
+ DynamicModuleBox[{$CellContext`windowWidth$$ = Dynamic[
+   Part[
+    CurrentValue[
+     SelectedNotebook[], WindowSize], 1]], $CellContext`componentSizeW$$ = 
+  Dynamic[Part[
+     CurrentValue[
+      SelectedNotebook[], WindowSize], 1] 
+   0.4], $CellContext`componentSizeH$$ = Dynamic[Part[
+     CurrentValue[
+      SelectedNotebook[], WindowSize], 1] 0.4]}, 
+  FrameBox[
+   TagBox[GridBox[{
+      {
+       FrameBox[
+        TagBox[GridBox[{
+           {
+            StyleBox["\<\"Project 1\"\>",
+             StripOnInput->False,
+             LineColor->GrayLevel[0],
+             FrontFaceColor->GrayLevel[0],
+             BackFaceColor->GrayLevel[0],
+             GraphicsColor->GrayLevel[0],
+             FontFamily->"Serif",
+             FontSize->25,
+             FontWeight->Bold,
+             FontColor->GrayLevel[0]]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 20},
+             StripOnInput->False]},
+           {
+            
+            StyleBox["\<\"Riemann series teorem \
+presentation\\!\\(\\(TraditionalForm\\`\\\\ \\)\\)\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"Please select the limit you wish to get from \\!\\(\
+\\*FractionBox[\\(1\\), \\(n\\)]\\) number permutation.\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 10},
+             StripOnInput->False]},
+           {
+            TagBox[
+             StyleBox[
+              
+              DynamicModuleBox[{$CellContext`n$$ = 882, $CellContext`value$$ =
+                1, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+               Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
+               Typeset`animvar$$ = 1, Typeset`name$$ = "\"untitled\"", 
+               Typeset`specs$$ = {{{
+                  Hold[$CellContext`n$$], 20, "Number of samples"}, 10, 2000, 
+                 1}, {{
+                  Hold[$CellContext`value$$], 1, 
+                  "Desired limit of series"}, -1.8, 3.6}}, Typeset`size$$ = {
+               404., {237., 239.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+               Typeset`skipInitDone$$ = True, $CellContext`n$14778$$ = 
+               0, $CellContext`value$14779$$ = 0}, 
+               
+               DynamicBox[Manipulate`ManipulateBoxes[
+                1, StandardForm, 
+                 "Variables" :> {$CellContext`n$$ = 20, $CellContext`value$$ = 
+                   1}, "ControllerVariables" :> {
+                   Hold[$CellContext`n$$, $CellContext`n$14778$$, 0], 
+                   Hold[$CellContext`value$$, $CellContext`value$14779$$, 0]},
+                  "OtherVariables" :> {
+                  Typeset`show$$, Typeset`bookmarkList$$, 
+                   Typeset`bookmarkMode$$, Typeset`animator$$, 
+                   Typeset`animvar$$, Typeset`name$$, Typeset`specs$$, 
+                   Typeset`size$$, Typeset`update$$, Typeset`initDone$$, 
+                   Typeset`skipInitDone$$}, "Body" :> 
+                 Block[{$CellContext`Answer = \
+$CellContext`HarmonicGenTrace[$CellContext`value$$, $CellContext`n$$], \
+$CellContext`valueLim = 
+                    Exp[($CellContext`value$$ - Log[2]) 
+                    2], $CellContext`dataRange = {$CellContext`n$$ 
+                    0.5, $CellContext`n$$}}, 
+                   Block[{$CellContext`p1 = ListPlot[
+                    Part[$CellContext`Answer, 1], PlotLabel -> StringJoin[
+                    StringJoin["Permutacja d\:0105\:017c\:0105ca do ", 
+                    ToString[$CellContext`value$$]], ""], 
+                    DataRange -> $CellContext`dataRange, 
+                    AxesLabel -> {
+                    "n", "n-ty wyraz szeregu"}], $CellContext`p2 = ListPlot[
+                    Part[$CellContext`Answer, 2], PlotLabel -> 
+                    StringJoin[
+                    "p_n/m_n (Ci\:0105g powinien d\:0105\:017cy\[CAcute] do \
+r=", 
+                    ToString[
+                    N[$CellContext`valueLim, 3]], ")"], 
+                    DataRange -> $CellContext`dataRange, 
+                    AxesLabel -> {
+                    "n", "n-ty wyraz ci\:0105gu p_n/m_n"}], $CellContext`pn1 = 
+                    Plot[$CellContext`value$$, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {Red, Thick, Dashed}], $CellContext`pn2 = 
+                    Plot[$CellContext`valueLim, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {Red, Thick, Dashed}], $CellContext`buttons = 
+                    ButtonBar[{"\[Pi]" :> Print[0]}]}, 
+                    GraphicsGrid[{{
+                    Show[$CellContext`p1, $CellContext`pn1]}, {
+                    Show[$CellContext`p2, $CellContext`pn2]}}, PlotLabel -> 
+                    StringJoin["Permutacje szeregu harmonicznego (", 
+                    ToString[$CellContext`n$$], " pr\[OAcute]bek)"], 
+                    ImageSize -> {$CellContext`componentSizeW$$, \
+$CellContext`componentSizeH$$ + 90}]]], 
+                 "Specifications" :> {{{$CellContext`n$$, 20, 
+                    "Number of samples"}, 10, 2000, 1, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> 
+                    None}, {{$CellContext`value$$, 1, 
+                    "Desired limit of series"}, -1.8, 3.6, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> None}}, "Options" :> {}, 
+                 "DefaultOptions" :> {}],
+                ImageSizeCache->{560., {286., 291.}},
+                SingleEvaluation->True],
+               Deinitialization:>None,
+               DynamicModuleValues:>{},
+               SynchronousInitialization->True,
+               UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+               UnsavedVariables:>{Typeset`initDone$$},
+               UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+              Deployed->True,
+              StripOnInput->False],
+             Manipulate`InterpretManipulate[1]]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Left}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+         "Column"],
+        FrameMargins->10,
+        StripOnInput->False], 
+       FrameBox[
+        TagBox[GridBox[{
+           {
+            StyleBox["\<\"Project 2\"\>",
+             StripOnInput->False,
+             LineColor->GrayLevel[0],
+             FrontFaceColor->GrayLevel[0],
+             BackFaceColor->GrayLevel[0],
+             GraphicsColor->GrayLevel[0],
+             FontFamily->"Serif",
+             FontSize->25,
+             FontWeight->Bold,
+             FontColor->GrayLevel[0]]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 20},
+             StripOnInput->False]},
+           {
+            
+            StyleBox["\<\"Let's suppose we have the following algorithm. \
+Given number \\!\\(TraditionalForm\\`d\\) and \\!\\(TraditionalForm\\`\
+\[Epsilon] > 0\\)\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"we add \
+\\!\\(TraditionalForm\\`\\*FractionBox[\\(1\\), \\(2  n - 1\\)]\\) until we \
+get more than \\!\\(TraditionalForm\\`\\(\\(d + \[Epsilon]\\)\\(,\\)\\(\\\\ \
+\\)\\)\\)\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"we substract \
+\\!\\(TraditionalForm\\`\\*FractionBox[\\(-1\\), \\(2  n\\)]\\) until we get \
+less than d-\[Epsilon], etc. \"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"If \[Epsilon]>0 then we get not divergent series. \
+You can generate such series below:\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 10},
+             StripOnInput->False]},
+           {
+            TagBox[
+             StyleBox[
+              
+              DynamicModuleBox[{$CellContext`d$$ = 0.27, $CellContext`e$$ = 
+               0.05, $CellContext`n$$ = 20, Typeset`show$$ = True, 
+               Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+               Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+               "\"untitled\"", Typeset`specs$$ = {{{
+                  Hold[$CellContext`n$$], 20, "Number of samples"}, 10, 500, 
+                 1}, {{
+                  Hold[$CellContext`d$$], 0.27, "Parameter d"}, -3, 3}, {{
+                  Hold[$CellContext`e$$], 0.05, "Parameter e"}, 0, 3}}, 
+               Typeset`size$$ = {404., {201., 203.}}, Typeset`update$$ = 0, 
+               Typeset`initDone$$, Typeset`skipInitDone$$ = 
+               True, $CellContext`n$14799$$ = 0, $CellContext`d$14800$$ = 
+               0, $CellContext`e$14801$$ = 0}, 
+               
+               DynamicBox[Manipulate`ManipulateBoxes[
+                1, StandardForm, 
+                 "Variables" :> {$CellContext`d$$ = 0.27, $CellContext`e$$ = 
+                   0.05, $CellContext`n$$ = 20}, "ControllerVariables" :> {
+                   Hold[$CellContext`n$$, $CellContext`n$14799$$, 0], 
+                   Hold[$CellContext`d$$, $CellContext`d$14800$$, 0], 
+                   Hold[$CellContext`e$$, $CellContext`e$14801$$, 0]}, 
+                 "OtherVariables" :> {
+                  Typeset`show$$, Typeset`bookmarkList$$, 
+                   Typeset`bookmarkMode$$, Typeset`animator$$, 
+                   Typeset`animvar$$, Typeset`name$$, Typeset`specs$$, 
+                   Typeset`size$$, Typeset`update$$, Typeset`initDone$$, 
+                   Typeset`skipInitDone$$}, "Body" :> 
+                 Block[{$CellContext`Answer = \
+$CellContext`GenDivergentSeries[$CellContext`d$$, $CellContext`e$$, \
+$CellContext`n$$], $CellContext`dataRange = {0, $CellContext`n$$}}, 
+                   
+                   Block[{$CellContext`p1 = 
+                    ListPlot[$CellContext`Answer, PlotLabel -> 
+                    StringJoin["Generated series ", 
+                    ToString[$CellContext`value], "(d=", 
+                    ToString[
+                    N[$CellContext`d$$, 3]], ")", "(e=", 
+                    ToString[
+                    N[$CellContext`e$$, 3]], ")"], 
+                    DataRange -> $CellContext`dataRange, 
+                    AxesLabel -> {
+                    "n", "n-th element of series"}], $CellContext`ptop = 
+                    Plot[$CellContext`d$$ + $CellContext`e$$, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {
+                    Black, Thick, Dashed}], $CellContext`pbottom = 
+                    Plot[$CellContext`d$$ - $CellContext`e$$, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {Black, Thick, Dashed}]}, 
+                    GraphicsGrid[{{
+                    
+                    Show[$CellContext`p1, $CellContext`ptop, \
+$CellContext`pbottom]}}, PlotLabel -> StringJoin["Demonstracja algorytmu (", 
+                    ToString[$CellContext`n$$], " pr\[OAcute]bek)"], 
+                    ImageSize -> {$CellContext`componentSizeW$$, \
+$CellContext`componentSizeH$$}]]], 
+                 "Specifications" :> {{{$CellContext`n$$, 20, 
+                    "Number of samples"}, 10, 500, 1, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> 
+                    None}, {{$CellContext`d$$, 0.27, "Parameter d"}, -3, 3, 
+                    ControlType -> Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> 
+                    None}, {{$CellContext`e$$, 0.05, "Parameter e"}, 0, 3, 
+                    ControlType -> Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> None}}, "Options" :> {}, 
+                 "DefaultOptions" :> {}],
+                ImageSizeCache->{554., {261., 266.}},
+                SingleEvaluation->True],
+               Deinitialization:>None,
+               DynamicModuleValues:>{},
+               SynchronousInitialization->True,
+               UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+               UnsavedVariables:>{Typeset`initDone$$},
+               UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+              Deployed->True,
+              StripOnInput->False],
+             Manipulate`InterpretManipulate[1]]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Left}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+         "Column"],
+        FrameMargins->10,
+        StripOnInput->False]},
+      {
+       FrameBox[
+        TagBox[GridBox[{
+           {
+            StyleBox["\<\"Project 3\"\>",
+             StripOnInput->False,
+             LineColor->GrayLevel[0],
+             FrontFaceColor->GrayLevel[0],
+             BackFaceColor->GrayLevel[0],
+             GraphicsColor->GrayLevel[0],
+             FontFamily->"Serif",
+             FontSize->25,
+             FontWeight->Bold,
+             FontColor->GrayLevel[0]]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 20},
+             StripOnInput->False]},
+           {
+            
+            StyleBox["\<\"Let's take a seqence \\!\\(TraditionalForm\\`1, \
+\\*FractionBox[\\(1\\), \\(2\\)], \\*FractionBox[\\(1\\), \\(3\\)],  ... \\) \
+in the monotonic order\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            StyleBox["\<\"(now it satisfies Dirichlet teorem) \"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"then we add elements of this sequence until we got \
+more than number \\!\\(TraditionalForm\\`a\\), then we substract them \
+etc.\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"We will get a series converging to \
+\\!\\(TraditionalForm\\`a\\). You can generate such series below: \"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 10},
+             StripOnInput->False]},
+           {
+            TagBox[
+             StyleBox[
+              
+              DynamicModuleBox[{$CellContext`a$$ = 0.05, $CellContext`n$$ = 
+               20, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+               Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
+               Typeset`animvar$$ = 1, Typeset`name$$ = "\"untitled\"", 
+               Typeset`specs$$ = {{{
+                  Hold[$CellContext`n$$], 20, "Number of samples"}, 10, 500, 
+                 1}, {{
+                  Hold[$CellContext`a$$], 0.05, 
+                  "Parameter a (desired limit)"}, -3, 3}}, Typeset`size$$ = {
+               496., {201., 203.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+               Typeset`skipInitDone$$ = True, $CellContext`n$14824$$ = 
+               0, $CellContext`a$14825$$ = 0}, 
+               
+               DynamicBox[Manipulate`ManipulateBoxes[
+                1, StandardForm, 
+                 "Variables" :> {$CellContext`a$$ = 0.05, $CellContext`n$$ = 
+                   20}, "ControllerVariables" :> {
+                   Hold[$CellContext`n$$, $CellContext`n$14824$$, 0], 
+                   Hold[$CellContext`a$$, $CellContext`a$14825$$, 0]}, 
+                 "OtherVariables" :> {
+                  Typeset`show$$, Typeset`bookmarkList$$, 
+                   Typeset`bookmarkMode$$, Typeset`animator$$, 
+                   Typeset`animvar$$, Typeset`name$$, Typeset`specs$$, 
+                   Typeset`size$$, Typeset`update$$, Typeset`initDone$$, 
+                   Typeset`skipInitDone$$}, "Body" :> 
+                 Block[{$CellContext`Answer = \
+$CellContext`GenSeriesA[$CellContext`a$$, $CellContext`n$$], \
+$CellContext`dataRange = {0, $CellContext`n$$}}, 
+                   
+                   Block[{$CellContext`p1 = 
+                    ListPlot[$CellContext`Answer, PlotLabel -> 
+                    StringJoin["Wygenerowany szereg ", "(a=", 
+                    ToString[
+                    N[$CellContext`a$$, 3]], ")"], 
+                    DataRange -> $CellContext`dataRange, 
+                    AxesLabel -> {
+                    "n", "n-ty wyraz szeregu"}], $CellContext`pn1 = 
+                    Plot[$CellContext`a$$, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {Red, Thick, Dashed}]}, 
+                    GraphicsGrid[{{
+                    Show[$CellContext`p1, $CellContext`pn1]}}, PlotLabel -> 
+                    StringJoin["Demonstracja algorytmu (", 
+                    ToString[$CellContext`n$$], " pr\[OAcute]bek)"], 
+                    ImageSize -> {$CellContext`componentSizeW$$ + 
+                    115, $CellContext`componentSizeH$$}]]], 
+                 "Specifications" :> {{{$CellContext`n$$, 20, 
+                    "Number of samples"}, 10, 500, 1, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> 
+                    None}, {{$CellContext`a$$, 0.05, 
+                    "Parameter a (desired limit)"}, -3, 3, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> None}}, "Options" :> {}, 
+                 "DefaultOptions" :> {}],
+                ImageSizeCache->{581., {250., 255.}},
+                SingleEvaluation->True],
+               Deinitialization:>None,
+               DynamicModuleValues:>{},
+               SynchronousInitialization->True,
+               UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+               UnsavedVariables:>{Typeset`initDone$$},
+               UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+              Deployed->True,
+              StripOnInput->False],
+             Manipulate`InterpretManipulate[1]]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Left}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+         "Column"],
+        FrameMargins->10,
+        StripOnInput->False], 
+       FrameBox[
+        TagBox[GridBox[{
+           {
+            StyleBox["\<\"Project 4\"\>",
+             StripOnInput->False,
+             LineColor->GrayLevel[0],
+             FrontFaceColor->GrayLevel[0],
+             BackFaceColor->GrayLevel[0],
+             GraphicsColor->GrayLevel[0],
+             FontFamily->"Serif",
+             FontSize->25,
+             FontWeight->Bold,
+             FontColor->GrayLevel[0]]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 20},
+             StripOnInput->False]},
+           {
+            
+            StyleBox["\<\"We can easily prove that any number x can be \
+expressed in form: \"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"             \
+\[Sum]\\!\\(\\*FractionBox[\\((\\(-1\\) \\*SuperscriptBox[\\()\\), \
+\\(n\\)]\\), \\(\\*SubscriptBox[\\(p\\), \\(\[Pi]\\)] \\((n)\\)\\)]\\)\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"where \\!\\(TraditionalForm\\`\[Pi]\\) is some \
+permutation: \\!\\(TraditionalForm\\`\[Pi] : \[DoubleStruckCapitalN]\\\\  \
+\[Rule] \\\\ \[DoubleStruckCapitalN]\\)\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            
+            StyleBox["\<\"Below you can express any number x in such \
+form.\"\>",
+             StripOnInput->False,
+             FontFamily->"Arial",
+             FontSize->16]},
+           {
+            FrameBox["\<\"\"\>",
+             FrameStyle->None,
+             ImageSize->{10, 10},
+             StripOnInput->False]},
+           {
+            TagBox[
+             StyleBox[
+              
+              DynamicModuleBox[{$CellContext`a$$ = 0.05, $CellContext`n$$ = 
+               20, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+               Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
+               Typeset`animvar$$ = 1, Typeset`name$$ = "\"untitled\"", 
+               Typeset`specs$$ = {{{
+                  Hold[$CellContext`n$$], 20, "Number of samples"}, 10, 500, 
+                 1}, {{
+                  Hold[$CellContext`a$$], 0.05, "Number x"}, -3, 3}}, 
+               Typeset`size$$ = {404., {212.5, 217.5}}, Typeset`update$$ = 0, 
+               Typeset`initDone$$, Typeset`skipInitDone$$ = 
+               True, $CellContext`n$14844$$ = 0, $CellContext`a$14845$$ = 0}, 
+               
+               DynamicBox[Manipulate`ManipulateBoxes[
+                1, StandardForm, 
+                 "Variables" :> {$CellContext`a$$ = 0.05, $CellContext`n$$ = 
+                   20}, "ControllerVariables" :> {
+                   Hold[$CellContext`n$$, $CellContext`n$14844$$, 0], 
+                   Hold[$CellContext`a$$, $CellContext`a$14845$$, 0]}, 
+                 "OtherVariables" :> {
+                  Typeset`show$$, Typeset`bookmarkList$$, 
+                   Typeset`bookmarkMode$$, Typeset`animator$$, 
+                   Typeset`animvar$$, Typeset`name$$, Typeset`specs$$, 
+                   Typeset`size$$, Typeset`update$$, Typeset`initDone$$, 
+                   Typeset`skipInitDone$$}, "Body" :> 
+                 Block[{$CellContext`Answer = \
+$CellContext`GenSeriesAPrimes[$CellContext`a$$, $CellContext`n$$], \
+$CellContext`dataRange = {0, $CellContext`n$$}}, 
+                   Block[{$CellContext`p1 = ListPlot[
+                    Part[$CellContext`Answer, 2], PlotLabel -> 
+                    StringJoin["Wygenerowany szereg ", "(a=", 
+                    ToString[
+                    N[$CellContext`a$$, 3]], ")"], 
+                    DataRange -> $CellContext`dataRange, 
+                    AxesLabel -> {
+                    "n", "n-ty wyraz szeregu"}], $CellContext`pn1 = 
+                    Plot[$CellContext`a$$, {$CellContext`t, 
+                    Part[$CellContext`dataRange, 1], 
+                    Part[$CellContext`dataRange, 2]}, 
+                    PlotStyle -> {Red, Thick, Dashed}]}, 
+                    Column[{
+                    GraphicsGrid[{{
+                    Show[$CellContext`p1, $CellContext`pn1]}}, PlotLabel -> 
+                    StringJoin["Demonstracja algorytmu (", 
+                    ToString[$CellContext`n$$], " pr\[OAcute]bek)"], 
+                    ImageSize -> {$CellContext`componentSizeW$$, \
+$CellContext`componentSizeH$$}], 
+                    "Used primes permutation \!\(\*SubscriptBox[\(p\), \
+\(\[Pi]\)]\)(n):", 
+                    Style[
+                    ToString[
+                    Part[$CellContext`Answer, 1]], 10]}]]], 
+                 "Specifications" :> {{{$CellContext`n$$, 20, 
+                    "Number of samples"}, 10, 500, 1, ControlType -> 
+                    Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> 
+                    None}, {{$CellContext`a$$, 0.05, "Number x"}, -3, 3, 
+                    ControlType -> Manipulator, ImageSize -> Dynamic[Part[
+                    CurrentValue[
+                    SelectedNotebook[], WindowSize], 1] 0.4], Appearance -> 
+                    "Labeled", AppearanceElements -> None}}, "Options" :> {}, 
+                 "DefaultOptions" :> {}],
+                ImageSizeCache->{554., {263., 268.}},
+                SingleEvaluation->True],
+               Deinitialization:>None,
+               DynamicModuleValues:>{},
+               SynchronousInitialization->True,
+               UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+               UnsavedVariables:>{Typeset`initDone$$},
+               UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+              Deployed->True,
+              StripOnInput->False],
+             Manipulate`InterpretManipulate[1]]}
+          },
+          DefaultBaseStyle->"Column",
+          GridBoxAlignment->{"Columns" -> {{Left}}},
+          
+          GridBoxItemSize->{
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+         "Column"],
+        FrameMargins->10,
+        StripOnInput->False]}
+     },
+     AutoDelete->False,
+     GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+    "Grid"],
+   FrameStyle->None,
+   StripOnInput->False],
+  DynamicModuleValues:>{}]], "Output",
+ CellChangeTimes->{{3.693993044154628*^9, 3.693993115767434*^9}, {
+   3.693993146165162*^9, 3.693993234165013*^9}, 3.693993411813364*^9, 
+   3.693993476507337*^9, {3.693993511587087*^9, 3.6939935339114647`*^9}, 
+   3.6939936120218997`*^9, {3.6939937651425853`*^9, 3.693993795286406*^9}, {
+   3.693993842957855*^9, 3.69399391409454*^9}, {3.693994508322142*^9, 
+   3.693994609711177*^9}, 3.693994682300167*^9, {3.6939947692250614`*^9, 
+   3.6939947884544125`*^9}, {3.6939948810172925`*^9, 3.6939948914570274`*^9}, 
+   3.693994955505166*^9, {3.693995002691882*^9, 3.6939950105607357`*^9}, {
+   3.69399506884396*^9, 3.693995093474455*^9}, {3.693995144537216*^9, 
+   3.693995166476201*^9}, 3.6939952971220007`*^9, 3.693995332136299*^9, 
+   3.699906938282134*^9, 3.6999069761607337`*^9, 3.699907498586707*^9}]
+}, Open  ]]
+},
+WindowSize->{1264, 951},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+Magnification:>0.8 Inherited,
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 679, 13, 128, "Input"],
+Cell[CellGroupData[{
+Cell[1262, 37, 55358, 1109, 3644, "Input"],
+Cell[56623, 1148, 27605, 598, 1438, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
